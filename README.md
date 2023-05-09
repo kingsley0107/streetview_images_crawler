@@ -1,12 +1,12 @@
 # SREETVIEW_IMAGES_CRAWLER
 ## 爬取思路与原理：
 
-![tech](.\pics\tech.png)
+![tech](./pics/tech.png)
 <p align="center">
         <i>技术路线.</i>
 </p>
 
-![prin](.\pics\pics.png)
+![prin](./pics/pics.png)
 <p align="center">
         <i>实现原理.</i>
 </p>
