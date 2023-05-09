@@ -12,6 +12,10 @@
 </p>
 
 ## 使用说明：
+### 代码运行顺序：
+- 在config/config.py中配置你的个人百度地图Key(需要到百度地图官网注册账号领取)
+- main.py修改你的数据路径
+- 执行main.py
 ### 内容：
 - 爬取文件的命名规则为 {wgs84_lng}_{wgs84_lat}_{direction}_{pitch}；其中direction指360°街景图片的角度，0为正前方；pitch为仰角；
 - 用户需要手动配置的目录为config/config.py及main.py,其他技术文件一般不需要额外配置
