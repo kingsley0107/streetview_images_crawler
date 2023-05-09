@@ -6,6 +6,15 @@ from utils.street2points import generate_streetview_points
 
 
 def points_from_road(road_path, threshold=100):
+    """_summary_
+
+    Args:
+        road_path (_type_): _road_path
+        threshold (int, optional): _split road in threshold meters_. Defaults to 100.
+
+    Returns:
+        _type_: _description_
+    """
     road = gpd.read_file(road_path)
     pnts = generate_streetview_points(road, threshold)
     return pnts

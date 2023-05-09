@@ -13,7 +13,10 @@
 
 ## 使用说明：
 ### 内容：
+- 爬取文件的命名规则为 {wgs84_lng}_{wgs84_lat}_{direction}_{pitch}；其中direction指360°街景图片的角度，0为正前方；pitch为仰角；
 - 用户需要手动配置的目录为config/config.py及main.py,其他技术文件一般不需要额外配置
+- main.py中，注意输入数据类型。若输入城市路网数据，则需在main.py中调用points_from_road函数，用生成的pnts调用run函数；，若输入街景点精确精确点数据，则直接调用run函数即可
+- recorder是最终输出的爬取记录excel数据
 - dir文件夹：放置了部分示例数据 如dir/shp/roads.shp为示例道路，points为示例点
 - dir文件夹：爬取进程结束后，crawl_recorder.xlsx生成，会记录所有坐标点的爬取结果![p](./pics/1683623741567.png)
 - images文件夹：保存街景爬取结果的文件夹
