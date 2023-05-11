@@ -1,43 +1,45 @@
+ENGLISH [中文版](./zh-ch.md)
 # SREETVIEW_IMAGES_CRAWLER
-## 爬取思路与原理：
+## Crawling Approach and Principle:：
 
 ![tech](./pics/tech.png)
 <p align="center">
-        <i>技术路线.</i>
+        <i>Technical Approach.</i>
 </p>
 
 ![prin](./pics/pics.png)
 <p align="center">
-        <i>实现原理.</i>
+        <i>Implementation Principle.</i>
 </p>
 
-## 使用说明：
-### 代码运行顺序：
-- 在config/config.py中配置你的个人百度地图Key(需要到百度地图官网注册账号领取)
-- main.py修改你的数据路径
-- 执行main.py
+## Instructions：
+### Execution Order：
+- Configure your personal Baidu Map Key in config/config.py (Need to register an account on the Baidu Map official website to obtain it)
+- Modify the data path in main.py
+- Execute main.py
 ### 内容：
-- 爬取文件的命名规则为 {wgs84_lng}_{wgs84_lat}_{direction}_{pitch}；其中direction指360°街景图片的角度，0为正前方；pitch为仰角；
-- 用户需要手动配置的目录为config/config.py及main.py,其他技术文件一般不需要额外配置
-- main.py中，注意输入数据类型。若输入城市路网数据，则需在main.py中调用points_from_road函数，用生成的pnts调用run函数；，若输入街景点精确精确点数据，则直接调用run函数即可
-- recorder是最终输出的爬取记录excel数据
-- dir文件夹：放置了部分示例数据 如dir/shp/roads.shp为示例道路，points为示例点
-- dir文件夹：爬取进程结束后，crawl_recorder.xlsx生成，会记录所有坐标点的爬取结果![p](./pics/1683623741567.png)
-- images文件夹：保存街景爬取结果的文件夹
+-   The naming convention for crawled files is {wgs84_lng}{wgs84_lat}{direction}_{pitch}, where direction indicates the angle of the 360° street view image (0 represents the forward direction) and pitch represents the pitch angle.
+-   The directories that need manual configuration are config/config.py and main.py. Other technical files generally do not require additional configuration.
+-   In main.py, pay attention to the input data type. If you are using city road network data, you need to call the points_from_road function in main.py and use the generated points (pnts) to call the run function. If you are using precise point data of street view locations, you can directly call the run function.
+-   The recorder is the final output of crawled data in an Excel format.
+-   The dir folder contains some example data, such as dir/shp/roads.shp for example roads, and points for example points.
+-   After the crawling process is completed, crawl_recorder.xlsx will be generated in the dir folder, which records the crawling results of all coordinate points.![p](./pics/1683623741567.png)
+-   The images folder is the folder where the crawled street view results are saved.
 
-### 环境依赖：
-- python 3.8以上
-- 需要有pandas,geopandas,tqdm等第三方库
+### Environment Dependencies：
+-   Python 3.8 or above
+-   Required third-party libraries: pandas, geopandas, tqdm, etc.
 
-### 注意事项:
-- 注意开始爬虫的启动文件必须为geodataframe格式下的点数据
-- wgs84坐标在程序中会利用wgs2bd09mc函数自动转化为百度的坐标，无需额外操作。
-- 街景文件命名方式为：经度 纬度 角度 俯仰角，若爬取成功，每个点会爬取0度、90度、180度和270度的街景图。
+### Notes:
+-   The starting file for initiating the crawler must be in the geodataframe format with point data.
+-   The WGS84 coordinates will be automatically converted to Baidu coordinates using the wgs2bd09mc function in the program, so no additional operations are required.
+-   The naming convention for street view files is longitude_latitude_angle_pitch. If the crawl is successful, each point will have street view images at 0°, 90°, 180°, and 270°.
 
-### 参考文献：
-
+### References：
 -  Yao, Y., Liang, Z., Yuan, Z., Liu, P., Bie, Y., Zhang, J., ... & Guan, Q. (2019). A human-machine adversarial scoring framework for urban perception assessment using street-view images. International Journal of Geographical Information Science, 33(12), 2363-2384.
 
-## 声明：
-本爬虫代码仅供个人学习科研使用，请勿用于任何非科研和非法用途。
-欢迎随时技术交流(kingsleyl0107@gmail.com)
+## Disclaimer：
+This crawler code is intended for personal learning and research purposes only. Please do not use it for any non-scientific or illegal purposes.
+
+## Concat:
+Feel free to contact for technical discussions(kingsleyl0107@gmail.com)
