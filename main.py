@@ -15,7 +15,7 @@ def points_from_road(road_path, threshold=100):
     Returns:
         _type_: _description_
     """
-    road = gpd.read_file(road_path)
+    road = gpd.read_file(road_path).to_crs("epsg:4326")
     pnts = generate_streetview_points(road, threshold)
     return pnts
 
@@ -27,9 +27,9 @@ def run(pnts, recorder):
 
 if __name__ == "__main__":
     # 如果是路网生成点 用这两行代码生成Pnts
-    road_path = r"./dir/shp/road.shp"
+    road_path = r"./test_streetview/31_age.shp"
     pnts = points_from_road(road_path, 50)
-
+    pnts.to_file(r"./data/seg_road/pts.geojson")
     # 如果直接有点数据，那么直接如下读取点就好了
     # pnts = gpd.read_file(r'...')
 

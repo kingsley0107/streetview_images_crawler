@@ -6,7 +6,7 @@ import os
 # 这个是sample
 # BMAP_API_KEY = "DtE9DWaBs56Yxg4pZv8fCGwKG31NXY5W"
 
-BMAP_API_KEY = "yourkey"
+BMAP_API_KEY = "DtE9DWaBs56Yxg4pZv8fCGwKG3oNXY5W"
 
 root = "./"
 images = "images/"
