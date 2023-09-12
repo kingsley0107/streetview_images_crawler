@@ -27,9 +27,9 @@ def run(pnts, recorder):
 
 if __name__ == "__main__":
     # 如果是路网生成点 用这两行代码生成Pnts
-    road_path = r"./test_streetview/31_age.shp"
+    road_path = r"./dir/shp/road.shp"
     pnts = points_from_road(road_path, 50)
-    pnts.to_file(r"./data/seg_road/pts.geojson")
+    pnts.to_file(r"./data/pts.geojson")
     # 如果直接有点数据，那么直接如下读取点就好了
     # pnts = gpd.read_file(r'...')
 

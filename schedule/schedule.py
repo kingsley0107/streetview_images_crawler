@@ -1,4 +1,4 @@
-from config.config import img_path, headings, pitchs, recorder
+from config.config import img_path, headings, pitchs, recorder,IMAGE_YEAR
 import pandas as pd
 import os
 import glob
@@ -64,14 +64,19 @@ def SVI_crawler(points: gpd.GeoDataFrame, recorder: pd.DataFrame):
         # get the images' info like date, road name and so on
         try:
             meta = getPanoMeta(PanoId)
-            meta["PID"] = row["PID"]
+            meta["PID"] = meta['id']
+            PanoId = meta['id']
         except Exception as e:
+            if not IMAGE_YEAR:
+                status = "failed in getting pano Info"
+            else:
+                status = f"no resources in year {IMAGE_YEAR} at this point"
             recorder = insert_record(
                 recorder,
                 PID=row["PID"],
                 wgs_x=row["geometry"].x,
                 wgs_y=row["geometry"].y,
-                status="failed in getting pano Info",
+                status=status
             )
             continue
         # crawl images in 4 directions:0,90,180 and 270 , for a round

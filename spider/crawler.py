@@ -1,7 +1,7 @@
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
-from config.config import BMAP_API_KEY
+from config.config import BMAP_API_KEY,IMAGE_YEAR
 from utils.header import get_header
 
 
@@ -26,14 +26,25 @@ def getPanoId(bd_x, bd_y):
     return PanoId
 
 
-def getPanoMeta(PanoId):
+def getPanoMeta(PanoId,SettingYear = IMAGE_YEAR):
     base_url = "https://mapsv0.bdimg.com/"
     params = {"qt": "sdata", "sid": PanoId, "pc": 1}
     response = request_url(base_url, params)
+
     content = response.json()["content"][0]
-    date = content["Date"]
     name = content["Rname"]
-    return {"date": date, "name": name}
+    if not SettingYear:
+        date = content["Date"]
+        return {"date": date, "name": name,"id":content['ID']}
+    else:
+        selected_year = str(SettingYear)
+        timelines = content['TimeLine']
+        for each_time in timelines:
+            if each_time['Year'] == selected_year:
+                date = each_time['TimeLine']
+                new_id = each_time['ID']
+                return {"date": date, "name": name,"id":new_id}
+        return None
 
 
 def getImage(PanoId, direction=0, pitch=0, width=1024, height=1024):
