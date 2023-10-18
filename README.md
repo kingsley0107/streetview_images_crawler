@@ -1,6 +1,7 @@
-#Google StreetView Crawler
+# Google StreetView Crawler
 
-###StartUp
+### StartUp
+
 put your key in config.py
 put accident data and rename as '2022_accident.csv'(example)
 
