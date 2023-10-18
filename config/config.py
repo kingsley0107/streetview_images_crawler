@@ -1,1 +1,5 @@
-Google_Key = 'AIzaSyBOSOybMKt-d30ixvgyTBujujujiiZulLc'
+GOOGLE_MAPS_API_KEY = '*'
+
+FEATURE_YEAR = 2022
+# YEARS = [2020, 2021, 2022]
+ACCIDENT_PATH = rf'./{FEATURE_YEAR}_accident.csv'
