@@ -1,6 +1,0 @@
-.idea/
-logs/
-*.pyc
-**/*.pyc
-**/__pycache__/
-images/
