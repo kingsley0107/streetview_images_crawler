@@ -9,7 +9,6 @@ import numpy as np
 import cv2
 from config.config import FEATURE_YEAR
 import os
-import geopandas as gpd
 
 
 class GSV_recorder:
