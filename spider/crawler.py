@@ -1,6 +1,6 @@
 from config.config import GOOGLE_MAPS_API_KEY
 import pandas as pd
-from header import get_header
+from spider.header import get_header
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
@@ -73,6 +73,7 @@ class GSV_Crawler:
         return pano_id
 
     def get_SVI(self, pano_id):
+
         panorama = []
         for heading in [0, 90, 180, 270]:
             params = {
@@ -88,10 +89,13 @@ class GSV_Crawler:
             panorama.append(
                 cv2.imdecode(np.frombuffer(img_binary, np.uint8),
                              cv2.IMREAD_COLOR))
-
-        panorama = Image.fromarray(np.concatenate(panorama, axis=1))
-        panorama.save(rf"./{self.IMG_PATH}/{pano_id}.jpg")
-        return pano_id
+            try:
+                panorama = Image.fromarray(np.concatenate(panorama, axis=1))
+                panorama.save(rf"./{self.IMG_PATH}/{pano_id}.jpg")
+            except Exception:
+                print("error")
+                return 0
+            return pano_id
 
 
 if __name__ == "__main__":
