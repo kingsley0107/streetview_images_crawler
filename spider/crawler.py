@@ -9,6 +9,8 @@ import numpy as np
 import cv2
 from config.config import FEATURE_YEAR
 import os
+from streetview import search_panoramas, get_panorama_meta
+from functools import lru_cache
 
 
 class GSV_recorder:
@@ -29,8 +31,29 @@ class GSV_Crawler:
         self.GSV_API = r"https://maps.googleapis.com/maps/api/streetview"
         self.SIZE = "600x300"
         self.KEY = GOOGLE_MAPS_API_KEY
+        # self.SIGNATURE = SIGNATURE
         self.IMG_PATH = rf"./{FEATURE_YEAR}_GSV/"
         self.check_folder()
+
+    @staticmethod
+    def searching_best_panoid(target_year, pt_geom, api_key):
+        year = target_year
+        distance = 100
+        best_match_pano = 0
+        panos = search_panoramas(lat=pt_geom.y, lon=pt_geom.x)
+        for each in panos:
+            img_id = each.pano_id
+            img_year = img_year = get_panorama_meta(img_id,
+                                                    api_key=api_key).date
+            if img_year is not None:
+                img_year = int(img_year[:4])
+                this_dis = abs(abs(year) - abs(img_year))
+                if this_dis < distance:
+                    best_match_pano = each.pano_id
+                    distance = this_dis
+                    if distance == 0:
+                        return best_match_pano
+        return best_match_pano
 
     def check_folder(self):
         if not os.path.isdir(self.IMG_PATH):
@@ -82,30 +105,23 @@ class GSV_Crawler:
                 "key": self.KEY,
                 "fov": 90,
                 "heading": heading,
-                "pitch": 0
+                "pitch": 0,
+                # "signature": SIGNATURE
             }
             img_binary = self.request_url(self.GSV_API, params).content
             # self.save_img(img_binary, 1, heading)
             panorama.append(
                 cv2.imdecode(np.frombuffer(img_binary, np.uint8),
                              cv2.IMREAD_COLOR))
-            try:
-                panorama = Image.fromarray(np.concatenate(panorama, axis=1))
-                panorama.save(rf"./{self.IMG_PATH}/{pano_id}.jpg")
-            except Exception:
-                print("error")
-                return 0
-            return pano_id
+        try:
+            panorama = Image.fromarray(np.concatenate(panorama, axis=1))
+            print(f"concentrate success {pano_id}")
+            panorama.save(rf"./{self.IMG_PATH}/{pano_id}.jpg")
+        except Exception:
+            print("error")
+            return 0
+        return pano_id
 
 
 if __name__ == "__main__":
-    # Crawler = GSV_Crawler()
-    # accident = pd.read_csv(r'./2022_accident.csv')[['Easting',
-    #                                                 'Northing']].head(10)
-    # accident['geometry'] = gpd.points_from_xy(
-    #     accident["Easting"], accident["Northing"],
-    #     crs="epsg:27700").to_crs("epsg:4326")
-    # accident['GSV_ID'] = accident['geometry'].apply(
-    #     lambda x: Crawler.get_SVI(Crawler.get_panoid(x)))
-    # accident.to_csv(rf"./{FEATURE_YEAR}_GSV/recorder.csv")
     pass
