@@ -1,4 +1,4 @@
-from config.config import FEATURE_YEAR, LATEST, GOOGLE_MAPS_API_KEY, ACCIDENT_PATH
+from config.config import FEATURE_YEAR, LATEST, GOOGLE_MAPS_API_KEY, ACCIDENT_PATH, ACCIDENT_PATH_EXCEL
 import pandas as pd
 import geopandas as gpd
 from spider.crawler import GSV_Crawler
@@ -7,10 +7,14 @@ from tqdm import tqdm
 tqdm.pandas(desc='pandas bar')
 if __name__ == "__main__":
     Crawler = GSV_Crawler()
-
-    accident = pd.read_csv(ACCIDENT_PATH)[[
-        '_Collision Id', 'Easting', 'Northing'
-    ]].head(50)
+    try:
+        accident = pd.read_csv(ACCIDENT_PATH)[[
+            '_Collision Id', 'Easting', 'Northing'
+        ]].head(50)
+    except Exception:
+        accident = pd.read_excel(ACCIDENT_PATH_EXCEL)[[
+            '_Collision Id', 'Easting', 'Northing'
+        ]].head(50)
     accident_unique = accident.drop_duplicates(['_Collision Id'])
     accident['geometry'] = gpd.points_from_xy(
         accident["Easting"], accident["Northing"],
