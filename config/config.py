@@ -1,4 +1,4 @@
-GOOGLE_MAPS_API_KEY = 'AIzaSyBOSOybMKt-d30ixvgyTBujujujiiZulLc'
+GOOGLE_MAPS_API_KEY = 'XXX'
 LATEST = False
 FEATURE_YEAR = 2005
 ACCIDENT_PATH = rf'./{FEATURE_YEAR}_accident.csv'
