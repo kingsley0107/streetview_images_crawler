@@ -9,7 +9,7 @@
 
 - 爬取历史街景：在 config 中将 LATEST 参数修改为 false，输入你最想爬取的目标年份 Feature_Year,将 Accident_path 修改为你的点位数据，脚本会自动爬取距离你目标年份时间最接近的谷歌街景图片
 
-- 爬取最新街景：在 config 中将 Laterst 参数设置为 True，脚本爬取 API 提供的最新图片，即在谷歌地图中可以看到的街景图
+- 爬取最新街景：在 config 中将 LATEST 参数设置为 True，脚本爬取 API 提供的最新图片，即在谷歌地图中可以看到的街景图
 
 ### Execute start.py
 
